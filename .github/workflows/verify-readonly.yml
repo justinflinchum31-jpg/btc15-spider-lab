@@ -23,12 +23,13 @@ jobs:
           import assert from 'node:assert/strict';
           const js = fs.readFileSync('public/app.js','utf8');
           const html = fs.readFileSync('public/index.html','utf8');
+          const researchHtml = fs.readFileSync('public/research.html','utf8');
           const replayHtml = fs.readFileSync('public/replay.html','utf8');
           const replayJS = fs.readFileSync('public/replay.js','utf8');
           const neonJS = fs.readFileSync('public/neon.js','utf8');
           const neonCSS = fs.readFileSync('public/neon.css','utf8');
           const toml = fs.readFileSync('netlify.toml','utf8');
-          const ids = new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
+          const ids = new Set([...researchHtml.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
           const requested = [...js.matchAll(/\$\('([^']+)'\)/g)].map(m=>m[1]);
           assert(requested.every(id => ids.has(id)),'Missing DOM ID');
           assert(!/\b(fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/.test(js + replayJS + neonJS),'Network use not allowed');
@@ -36,9 +37,9 @@ jobs:
           assert(replayHtml.includes('Historical signal replay.') && replayJS.includes('const samples='),'Replay assets missing');
           assert(html.includes('neon.js') && html.includes('neon.css'),'Neon dashboard not the homepage');
           assert(neonCSS.includes('.status-grid') && neonCSS.includes('.market-chart'),'Neon styling missing');
-          const ids = new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
+          const neonIds = new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
           const needed = [...neonJS.matchAll(/\$\('([^']+)'\)/g)].map(m=>m[1]);
-          assert(needed.every(id=>ids.has(id)),'Missing neon dashboard element');
+          assert(needed.every(id=>neonIds.has(id)),'Missing neon dashboard element');
           const packed = neonJS.match(/const PACK = "([^"]+)";/)?.[1];
           assert(packed && packed.split(';').length === 240,'Expected 240 archived OHLC candles');
           assert(toml.includes('publish = "public"'),'Unexpected publish dir');
