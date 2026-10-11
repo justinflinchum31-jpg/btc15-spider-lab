@@ -1,3 +1,15 @@
+## Read-only public BTC/USD spot feed (v2.6)
+
+- **Live-view page:** `/spot.html`; the neon homepage also shows a source-timestamped BTC spot quote.
+- **Netlify API:** `GET /api/spot-market` with `interval=60|300|900`; optional `mode=quote` limits a call to the ticker. Other query parameters and HTTP methods are rejected.
+- **Fixed source:** public BTC/USD spot quote and OHLCV history through a server-side endpoint. This is a different venue/data series from archived BRTI reference data. Do not mix these sources for settlement or model evaluation.
+- **Data checks:** actual ticker timestamp, price and OHLCV validity, only completed candles, explicit provider failures and stale-feed states. Never invent a quote when the source is unavailable.
+- **Chart:** 1m, 5m, 15m switcher; volume bars; EMA20/EMA50 overlays; RSI14; MACD histogram; observed price, bid/ask spread and source freshness. The dashboard refreshes a cached same-origin read-only endpoint periodically.
+- **Security:** no credentials or wallet connection; no trading/execution/recommendation endpoints; only one deployed GET-only function; site Content Security Policy permits same-origin data reads and blocks external browser connections.
+- **Checks:** `node --test tests/spot-market.test.mjs`, plus the GitHub Actions read-only policy checks.
+
+**Verification:** CI tests and the Netlify production deployment can be checked through GitHub/Netlify. Since external calls to the signed-in site may be restricted, the market-data response's runtime freshness is a separate check; source errors display as unavailable, rather than a fabricated successful price.
+
 ## Neon paper-research schematic (v2.5)
 
 The **homepage** at `/` is now a fully coded dark-navy/neon-pink dashboard inspired by the supplied reference screenshot, not a mock image. It includes eight research status cards, a timestamped event monitor, 1m/5m/15m BTC OHLC candlesticks with EMA 20/50, an offline correctness chart, technical analysis, research guards, direction-filter buttons, an interactive historical replay journal, and CSV export.
