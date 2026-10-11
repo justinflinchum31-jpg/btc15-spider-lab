@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b1c"><meta name="description" content="Read-only BTC/USD spot-market dashboard with candlesticks and descriptive technical indicators.">
+<title>BTC15 · Spot Market Research</title>
+<link rel="stylesheet" href="/neon.css"><link rel="stylesheet" href="/spot.css"></head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand-mark">✳</span><span>SPIDER <b>/ BTC15</b></span></a>
+  <span class="paper-pill">READ-ONLY RESEARCH</span>
+  <nav aria-label="Dashboard navigation">
+    <a href="/">DASHBOARD</a><a href="/spot.html" class="active">BTC SPOT</a>
+    <a href="/replay.html">ARCHIVED REPLAY</a><a href="/research.html">RESEARCH</a>
+  </nav>
+  <div class="head-right"><span class="date-pill">BTC / USD</span><span class="online"><i></i> NO ORDERS</span></div>
+</header>
+<main>
+  <div class="archive-banner"><strong>PUBLIC SPOT DATA · NOT THE BRTI INDEX</strong><span>Live snapshots from a public BTC/USD spot-market feed. Price observations can be delayed or unavailable. No wallets, order controls, trade suggestions, or simulated profits.</span></div>
+  <section class="spot-summary" aria-label="Spot market summary">
+    <article class="spot-tile"><span class="eyebrow">LATEST BTC / USD</span><strong class="spot-number" id="spot-price">—</strong><span id="spot-status" class="spot-secondary">Connecting to source…</span></article>
+    <article class="spot-tile"><span class="eyebrow">FEED FRESHNESS</span><strong id="spot-age" class="spot-number small">—</strong><span class="spot-secondary" id="spot-time">Awaiting timestamp</span></article>
+    <article class="spot-tile"><span class="eyebrow">BEST BID / ASK</span><strong id="spot-spread" class="spot-number small">—</strong><span class="spot-secondary" id="spot-bidask">Public quoted prices</span></article>
+    <article class="spot-tile"><span class="eyebrow">24H BTC VOLUME</span><strong id="spot-volume" class="spot-number small">—</strong><span class="spot-secondary">Spot-exchange reported volume (BTC)</span></article>
+  </section>
+  <div id="feed-error" class="spot-error" role="status" hidden>Source unavailable</div>
+  <section class="spot-main">
+    <article class="frame spot-chart-panel">
+      <div class="panel-heading spot-chart-head">
+        <div><span class="eyebrow pink-text">LIVE SPOT-MARKET OBSERVATIONS</span><h2>BTC/USD · Coinbase Exchange</h2><p class="muted">Closed OHLCV candles. The latest quoted price may be newer than the last candle.</p></div>
+        <div class="spot-actions">
+          <div class="mini-controls" role="group" aria-label="Candle timeframe">
+            <button class="on" data-granularity="60">1m</button><button data-granularity="300">5m</button><button data-granularity="900">15m</button>
+          </div><button class="small-outline" id="spot-refresh">REFRESH DATA ↻</button>
+        </div>
+      </div>
+      <div class="spot-chart-stats"><span>EMA 20 <b id="ema20">—</b></span><span>EMA 50 <b id="ema50">—</b></span><span id="spot-ohlc">O — H — L — C —</span></div>
+      <div class="spot-candle-wrap"><canvas id="spot-canvas" role="img" aria-label="Spot BTC/USD OHLCV candlestick chart"></canvas></div>
+      <div class="spot-volume-wrap"><canvas id="volume-canvas" role="img" aria-label="Spot BTC trade volume by candle"></canvas></div>
+      <div class="spot-chart-foot"><span><i class="legend-candle up"></i> Up <i class="legend-candle down"></i> Down</span><span><i class="legend-line ema20"></i> EMA 20 <i class="legend-line ema50"></i> EMA 50</span><span id="spot-candle-info">Waiting for candles</span></div>
+    </article>
+    <aside class="spot-side">
+      <article class="frame spot-info">
+        <div class="panel-heading"><div><span class="eyebrow">DESCRIPTIVE ANALYSIS</span><h2>Indicator readings</h2></div><span class="pill-small">OBSERVATIONS ONLY</span></div>
+        <div class="guard-row"><span>RSI 14</span><b id="spot-rsi">—</b></div>
+        <div class="guard-row"><span>MACD histogram</span><b id="spot-macd">—</b></div>
+        <div class="guard-row"><span>EMA 20 vs EMA 50</span><b id="spot-trend">—</b></div>
+        <div class="guard-row"><span>Completed candles</span><b id="spot-bars">—</b></div>
+        <div class="guard-row"><span>Latest closed bar age</span><b id="spot-bar-age">—</b></div>
+        <div class="spot-note">Trend and momentum readings describe recent observations. They are not forecasts or instructions to enter a financial position.</div>
+      </article>
+      <article class="frame spot-info">
+        <div class="panel-heading"><div><span class="eyebrow">SOURCE CHECKS</span><h2>Data health</h2></div><span class="pill-small">NO AUTH REQUIRED</span></div>
+        <div class="guard-row"><span>Source</span><b>Coinbase spot</b></div>
+        <div class="guard-row"><span>BTC pair</span><b>BTC-USD</b></div>
+        <div class="guard-row"><span>API response</span><b id="spot-health">PENDING</b></div>
+        <div class="guard-row"><span>Last checked</span><b id="spot-updated">—</b></div>
+        <div class="guard-row"><span>Order execution</span><b class="good">DISABLED</b></div>
+        <div class="guard-row"><span>BRTI index comparisons</span><b class="warn">SEPARATE</b></div>
+        <div class="spot-note">This spot feed is independent of the historical BRTI archive. Do not interpret the two sources as interchangeable settlement data.</div>
+      </article>
+    </aside>
+  </section>
+  <section class="frame spot-note-panel"><span class="eyebrow pink-text">DATA PROVENANCE</span><h2>What this page does</h2><p>Requests only public spot-market price and candle observations through a fixed read-only endpoint on the BTC15 site. The server validates OHLCV shapes and timestamps and only returns completed candles. If the source is down or stale, the interface displays that limitation. It does not collect account details, connect wallets, copy trades, place orders, or turn this historical analysis into trading recommendations.</p><p>Visit the <a href="/replay.html">BRTI historical replay</a> for the separate archived research dataset.</p></section>
+  <footer>BTC15 SPIDER LAB <span>PUBLIC BTC/USD SPOT RESEARCH · NO TRADE EXECUTION · DATA MAY BE DELAYED</span></footer>
+</main>
+<script src="/spot.js" defer></script>
+</body></html>
