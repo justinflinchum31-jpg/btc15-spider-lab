@@ -15,6 +15,7 @@ jobs:
         run: |
           node --check public/app.js
           node --check public/replay.js
+          node --check public/neon.js
       - name: Validate read-only policy
         run: |
           node --input-type=module <<'EOF'
@@ -24,13 +25,22 @@ jobs:
           const html = fs.readFileSync('public/index.html','utf8');
           const replayHtml = fs.readFileSync('public/replay.html','utf8');
           const replayJS = fs.readFileSync('public/replay.js','utf8');
+          const neonJS = fs.readFileSync('public/neon.js','utf8');
+          const neonCSS = fs.readFileSync('public/neon.css','utf8');
           const toml = fs.readFileSync('netlify.toml','utf8');
           const ids = new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
           const requested = [...js.matchAll(/\$\('([^']+)'\)/g)].map(m=>m[1]);
           assert(requested.every(id => ids.has(id)),'Missing DOM ID');
-          assert(!/\b(fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/.test(js + replayJS),'Network use not allowed');
-          assert(!/\b(wallet|placeOrder|submitOrder|executeTrade|paperTrade)\s*\(/i.test(js + replayJS),'Trading action not allowed');
+          assert(!/\b(fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/.test(js + replayJS + neonJS),'Network use not allowed');
+          assert(!/\b(wallet|placeOrder|submitOrder|executeTrade|paperTrade)\s*\(/i.test(js + replayJS + neonJS),'Trading action not allowed');
           assert(replayHtml.includes('Historical signal replay.') && replayJS.includes('const samples='),'Replay assets missing');
+          assert(html.includes('neon.js') && html.includes('neon.css'),'Neon dashboard not the homepage');
+          assert(neonCSS.includes('.status-grid') && neonCSS.includes('.market-chart'),'Neon styling missing');
+          const ids = new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
+          const needed = [...neonJS.matchAll(/\$\('([^']+)'\)/g)].map(m=>m[1]);
+          assert(needed.every(id=>ids.has(id)),'Missing neon dashboard element');
+          const packed = neonJS.match(/const PACK = "([^"]+)";/)?.[1];
+          assert(packed && packed.split(';').length === 240,'Expected 240 archived OHLC candles');
           assert(toml.includes('publish = "public"'),'Unexpected publish dir');
           assert(toml.includes("connect-src 'none'"),'Network CSP missing');
           assert(!fs.existsSync('netlify/functions'),'Serverless endpoints must not be published');
