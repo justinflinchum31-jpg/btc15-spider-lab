@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b1c"><meta name="description" content="A $500 hypothetical Bitcoin price study with ten-minute public market observations.">
+<title>BTC15 · $500 Virtual Study</title>
+<link rel="stylesheet" href="/neon.css"><link rel="stylesheet" href="/virtual.css"></head>
+<body>
+<header class="topbar">
+<a class="brand" href="/"><span class="brand-mark">✳</span><span>SPIDER <b>/ BTC15</b></span></a>
+<span class="paper-pill">EDUCATIONAL ONLY</span>
+<nav aria-label="Dashboard navigation">
+<a href="/">DASHBOARD</a><a href="/spot.html">BTC SPOT</a><a href="/virtual.html" class="active">VIRTUAL STUDY</a>
+<a href="/replay.html">HISTORICAL REPLAY</a><a href="/research.html">RESEARCH</a></nav>
+<div class="head-right"><span class="date-pill">10m RESEARCH</span><span class="online"><i></i> NO ORDERS</span></div>
+</header>
+<main>
+<div class="archive-banner"><strong>NON-CASH BTC STUDY</strong><span>A $500 reference amount tracks how the observed BTC price changes. No brokerage balance, order execution, bets, copied traders, or real profits.</span></div>
+<section class="virtual-head">
+<div><span class="eyebrow pink-text">10-MINUTE PUBLIC PRICE OBSERVATIONS</span><h1>Watch the $500 virtual BTC benchmark.</h1><p>Scheduled snapshots of verified BTC/USD spot prices, with a persistent observation journal and hypothetical performance curve.</p></div>
+<div class="study-state"><span class="study-dot" id="study-dot"></span><strong id="study-state">WAITING FOR FIRST OBSERVATION</strong><small id="study-age">Scheduled every 10 minutes, UTC</small></div>
+</section>
+<section class="virtual-kpis">
+<article class="virtual-card"><span>STARTING REFERENCE</span><strong>$500.00</strong><small>Fixed hypothetical starting amount</small></article>
+<article class="virtual-card"><span>HYPOTHETICAL VALUE</span><strong id="virtual-value">—</strong><small id="virtual-value-note">Awaiting first verified observation</small></article>
+<article class="virtual-card"><span>REFERENCE CHANGE</span><strong id="virtual-change">—</strong><small id="virtual-pct">No calculated change yet</small></article>
+<article class="virtual-card"><span>VALID OBSERVATIONS</span><strong id="virtual-count">0</strong><small id="virtual-first">Historical series not started</small></article>
+</section>
+<section class="virtual-layout">
+<article class="frame virtual-graph-panel">
+<div class="panel-heading">
+<div><span class="eyebrow">VIRTUAL REFERENCE VALUE · USD</span><h2>Hypothetical BTC price exposure</h2></div>
+<div class="virtual-graph-tools"><div class="mini-controls"><button data-window="12">12</button><button data-window="36">36</button><button class="on" data-window="72">72</button><button data-window="144">144</button></div>
+<button id="virtual-refresh" class="small-outline">REFRESH ↻</button></div></div>
+<div class="virtual-legend"><span><i></i> Hypothetical USD value</span><span class="baseline-key">— $500 reference</span><span>10-minute scheduled observations</span></div>
+<div class="virtual-graph"><canvas id="virtual-graph" role="img" aria-label="Hypothetical virtual $500 Bitcoin reference value over saved 10-minute snapshots"></canvas>
+<div id="virtual-empty" class="virtual-empty">Awaiting the first scheduled, verified spot-price snapshot.</div></div>
+<div class="virtual-fineprint">This line is a mathematical comparison: $500 × current observed BTC price ÷ first observed BTC price. It is not the value of an account or executed position, and excludes fees and taxes.</div>
+</article>
+<aside class="virtual-side">
+<article class="frame virtual-inspector"><div class="panel-heading"><div><span class="eyebrow">AUDIT & DATA QUALITY</span><h2>Observation monitor</h2></div><span class="pill-small">READ ONLY</span></div>
+<div class="guard-row"><span>Market</span><b>BTC/USD SPOT</b></div>
+<div class="guard-row"><span>Source</span><b>Coinbase Exchange</b></div>
+<div class="guard-row"><span>Snapshot cadence</span><b>10 MINUTES</b></div>
+<div class="guard-row"><span>First verified quote</span><b id="virtual-started">—</b></div>
+<div class="guard-row"><span>First BTC reference</span><b id="virtual-start-price">—</b></div>
+<div class="guard-row"><span>Most recent observation</span><b id="virtual-latest">—</b></div>
+<div class="guard-row"><span>Latest BTC reference</span><b id="virtual-last-price">—</b></div>
+<div class="guard-row"><span>Wallet / orders</span><b class="good">DISABLED</b></div>
+<p class="virtual-side-note">A run is skipped if fresh, valid market data cannot be verified. The system never inserts invented snapshots to fill a gap.</p>
+</article>
+<article class="frame virtual-inspector"><div class="panel-heading"><div><span class="eyebrow">BENCHMARK METHOD</span><h2>What this measures</h2></div></div>
+<p class="virtual-side-note">The first verified BTC price establishes the fixed $500 reference. Later verified prices are compared with that original reference. There are no buy/sell decisions or P&amp;L credited from prediction markets. The record persists across site reloads.</p>
+<a class="virtual-link" href="/spot.html">VIEW PUBLIC BTC SPOT CHARTS ↗</a>
+</article></aside>
+</section>
+<section class="frame virtual-table-panel">
+<div class="panel-heading"><div><span class="eyebrow pink-text">PERSISTENT 10-MINUTE HISTORY</span><h2>Verified spot observation journal</h2></div><div class="virtual-table-actions"><span class="pill-small" id="virtual-window-label">LATEST 72 RECORDS</span><button class="small-outline" id="virtual-export">EXPORT CSV</button></div></div>
+<div class="table-scroll"><table><thead><tr><th>10m SLOT (UTC)</th><th>SOURCE QUOTE TIME</th><th>BTC REFERENCE PRICE</th><th>VIRTUAL USD VALUE</th><th>CHANGE FROM $500</th><th>CHANGE %</th></tr></thead><tbody id="virtual-rows"><tr><td colspan="6">Awaiting verified 10-minute observations.</td></tr></tbody></table></div>
+<p class="table-note">Each row comes from a persisted observation, not a fabricated trade. The ledger has no actual orders or account balances.</p>
+</section>
+<footer>BTC15 SPIDER LAB <span>$500 HYPOTHETICAL BTC SPOT STUDY · EVERY 10 MINUTES · NO FINANCIAL ORDERS</span></footer>
+</main><script src="/virtual.js" defer></script></body></html>
