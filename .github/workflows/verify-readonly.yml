@@ -1,0 +1,33 @@
+name: Verify read-only dashboard
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify JavaScript syntax
+        run: node --check public/app.js
+      - name: Validate read-only policy
+        run: |
+          node --input-type=module <<'EOF'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          const js = fs.readFileSync('public/app.js','utf8');
+          const html = fs.readFileSync('public/index.html','utf8');
+          const toml = fs.readFileSync('netlify.toml','utf8');
+          const ids = new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
+          const requested = [...js.matchAll(/\$\('([^']+)'\)/g)].map(m=>m[1]);
+          assert(requested.every(id => ids.has(id)),'Missing DOM ID');
+          assert(!/\b(fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/.test(js),'Network use not allowed');
+          assert(!/\b(wallet|placeOrder|submitOrder|executeTrade|paperTrade)\s*\(/i.test(js),'Trading action not allowed');
+          assert(toml.includes('publish = "public"'),'Unexpected publish dir');
+          assert(toml.includes("connect-src 'none'"),'Network CSP missing');
+          assert(!fs.existsSync('netlify/functions'),'Serverless endpoints must not be published');
+          console.log('Read-only static checks passed');
+          EOF
