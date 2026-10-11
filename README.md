@@ -24,3 +24,7 @@ Import repository `justinflinchum31-jpg/btc15-spider-lab` using production branc
 ## Safety / security
 
 This is a deliberately public-safe static subset. It makes zero network requests from browser JavaScript; CSP sets `connect-src 'none'`. It includes no key material or private data. The main BTC15 automated bot from the earlier ZIP is **not** included.
+
+## Historical signal replay
+
+The site now includes [`/replay.html`](https://btc15-spider-lab-justin.netlify.app/replay.html), a **read-only historical directional research ledger**, not a trading bot. It uses the 5,902 consecutive October 5–9, 2026 BRTI candles already bundled in the earlier local research archive. Every 15 minutes starting at the 46th candle, a past-only rule assesses EMA 9 vs EMA 21 and the 5-minute price change. If both are up, the retrospective signal is UP; if both are down, DOWN; otherwise ABSTAIN. Outcomes use the BRTI index close exactly 15 minutes later. Across 390 windows: 257 directional signals, 110 correct directions, 147 incorrect, 133 abstentions; historical directional accuracy **42.8%**. The replay page displays the last 32 windows with timestamps and observed prices. This does not measure Polymarket execution, entry costs, contract settlement, actual trades, or net returns. It is unsuitable as a live decision policy without stronger validation.
