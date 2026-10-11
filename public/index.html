@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#080b1c">
 <meta name="description" content="BTC15 Spider Lab — archived Bitcoin OHLC candlestick visualization and paper-only research schematic.">
 <title>BTC15 Spider Lab | Historical Paper Schematic</title>
-<link rel="stylesheet" href="/neon.css">
+<link rel="stylesheet" href="/neon.css"><link rel="stylesheet" href="/spot-home.css">
 </head>
 <body>
 <header class="topbar">
@@ -13,7 +13,7 @@
   <span class="paper-pill">PAPER RESEARCH</span>
   <nav aria-label="Dashboard navigation">
     <a href="#overview" class="active">DASHBOARD</a>
-    <a href="#market">CHARTS</a>
+    <a href="#market">CHARTS</a><a href="/spot.html">LIVE BTC SPOT</a>
     <a href="#analysis">ANALYSIS</a>
     <a href="/replay.html">REPLAY</a>
     <a href="#history">RECORDS</a>
@@ -23,6 +23,12 @@
 </header>
 <main>
   <div class="archive-banner"><strong>HISTORICAL PAPER SCHEMATIC</strong><span>Observed Bitcoin reference-index data. Not a live feed, trading service, prediction-market execution system, or statement of realized profits.</span></div>
+
+  <section id="spot-mini" class="spot-ribbon" aria-label="Current read-only Bitcoin spot quote">
+    <div><span class="eyebrow">PUBLIC BTC/USD SPOT MARKET</span><strong>Live price research · Coinbase spot</strong><small>Separate source from archived BRTI candlestick data</small></div>
+    <div class="spot-quote"><span class="spot-quote-label" id="spot-mini-stamp">Checking quote freshness</span><strong id="spot-mini-price">—</strong><span id="spot-mini-health">CONNECTING</span></div>
+    <a class="spot-action" href="/spot.html">OPEN SPOT CHARTS ↗</a>
+  </section>
 
   <section class="status-grid" aria-label="Research systems">
     <article class="status-card"><div class="status-top"><span class="orb green"></span><strong>SOURCE</strong><small>L0</small></div><p>BRTI closed OHLC bars</p><div class="meter"><i class="green-fill" style="width:100%"></i></div><span class="status-caption" id="st-source">240 archived candles loaded</span></article>
@@ -102,5 +108,5 @@
   </section>
   <footer>BTC15 SPIDER LAB <span>NEON PAPER-RESEARCH SCHEMATIC · ARCHIVED BRTI DATA · NO LIVE TRADES</span></footer>
 </main>
-<script src="/neon.js" defer></script>
+<script src="/neon.js" defer></script><script src="/spot-home.js" defer></script>
 </body></html>
