@@ -28,8 +28,9 @@ jobs:
           const ids = new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
           const requested = [...js.matchAll(/\$\('([^']+)'\)/g)].map(m=>m[1]);
           assert(requested.every(id => ids.has(id)),'Missing DOM ID');
-          assert(!/\b(fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/.test(js),'Network use not allowed');
-          assert(!/\b(wallet|placeOrder|submitOrder|executeTrade|paperTrade)\s*\(/i.test(js),'Trading action not allowed');
+          assert(!/\b(fetch|XMLHttpRequest|WebSocket|EventSource)\s*\(/.test(js + replayJS),'Network use not allowed');
+          assert(!/\b(wallet|placeOrder|submitOrder|executeTrade|paperTrade)\s*\(/i.test(js + replayJS),'Trading action not allowed');
+          assert(replayHtml.includes('Historical signal replay.') && replayJS.includes('const samples='),'Replay assets missing');
           assert(toml.includes('publish = "public"'),'Unexpected publish dir');
           assert(toml.includes("connect-src 'none'"),'Network CSP missing');
           assert(!fs.existsSync('netlify/functions'),'Serverless endpoints must not be published');
