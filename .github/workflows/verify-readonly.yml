@@ -16,6 +16,11 @@ jobs:
           node --check public/app.js
           node --check public/replay.js
           node --check public/neon.js
+          node --check public/spot.js
+          node --check public/spot-home.js
+          node --check netlify/functions/spot-market.mjs
+      - name: Run market-data unit tests
+        run: node --test tests/spot-market.test.mjs
       - name: Validate read-only policy
         run: |
           node --input-type=module <<'EOF'
@@ -28,6 +33,10 @@ jobs:
           const replayJS = fs.readFileSync('public/replay.js','utf8');
           const neonJS = fs.readFileSync('public/neon.js','utf8');
           const neonCSS = fs.readFileSync('public/neon.css','utf8');
+          const spotHTML = fs.readFileSync('public/spot.html','utf8');
+          const spotJS = fs.readFileSync('public/spot.js','utf8');
+          const spotHomeJS = fs.readFileSync('public/spot-home.js','utf8');
+          const functionJS = fs.readFileSync('netlify/functions/spot-market.mjs','utf8');
           const toml = fs.readFileSync('netlify.toml','utf8');
           const ids = new Set([...researchHtml.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
           const requested = [...js.matchAll(/\$\('([^']+)'\)/g)].map(m=>m[1]);
@@ -43,7 +52,12 @@ jobs:
           const packed = neonJS.match(/const PACK = "([^"]+)";/)?.[1];
           assert(packed && packed.split(';').length === 240,'Expected 240 archived OHLC candles');
           assert(toml.includes('publish = "public"'),'Unexpected publish dir');
-          assert(toml.includes("connect-src 'none'"),'Network CSP missing');
-          assert(!fs.existsSync('netlify/functions'),'Serverless endpoints must not be published');
+          assert(toml.includes("connect-src 'self'"),'Same-origin-only CSP required');
+          assert(html.includes('href="/spot.html"') && html.includes('spot-home.js'),'Spot interface link missing');
+          assert(spotHTML.includes('/spot.js') && spotHTML.includes('spot-canvas'),'Spot charts missing');
+          assert(spotJS.includes("'/api/spot-market?mode='") && spotHomeJS.includes("'/api/spot-market?mode=quote'"),'Only approved same-origin API calls allowed');
+          assert(!/\\b(walletConnect|placeOrder|submitOrder|executeTrade|paperTrade)\\s*\\(/i.test(spotJS+spotHomeJS+functionJS),'Trading capabilities not allowed');
+          assert(functionJS.includes('https://api.exchange.coinbase.com/products/BTC-USD'),'Only public fixed BTC/USD endpoint allowed');
+          assert.deepEqual(fs.readdirSync('netlify/functions').sort(),['spot-market.mjs'],'Only allowlisted market-data reader may be deployed');
           console.log('Read-only static checks passed');
           EOF
