@@ -1,18 +1,106 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#09130f"><meta name="description" content="BTC15 Spider Lab: read-only Bitcoin historical analysis, technical indicators, and transparent research validation."><title>BTC15 / Spider Research Lab</title><link rel="stylesheet" href="/style.css"></head>
-<body><header class="top"><a href="#overview" class="brand"><span class="mark">✳</span><span>SPIDER <em>/ BTC15</em><small>BITCOIN RESEARCH LAB</small></span></a><nav><a href="#overview">Overview</a><a href="#technical">Technical desk</a><a href="#validation">Validation</a><a href="#methodology">Methodology</a><a href="/replay.html">Historical replay</a></nav><span class="pill">READ ONLY</span></header>
-<main><div class="intro"><div><div class="eyebrow">OBSERVE. ANALYZE. VERIFY.</div><h1>Bitcoin research, without the guesswork.</h1><p>Historical reference prices and out-of-sample evidence in one transparent dashboard.</p></div><div class="status"><span class="dot"></span>ARCHIVED DATA · NOT LIVE</div></div>
-<div class="notice" role="status"><strong>Research-only version.</strong> This site displays archived observations and validation results. It does not connect to wallets, place orders, execute paper trades, or suggest that profits are verified.</div>
-<section id="overview" class="tiles">
-<article class="tile"><div class="tile-top"><span>01 / SOURCE</span><span class="mini">OBSERVED</span></div><h2>Price history</h2><div class="big" id="last-price">—</div><p id="source-age">BRTI · last archived 1m candle</p><div class="tile-bottom"><span>REFERENCE INDEX</span><b>BRTI / BTC–USD</b></div></article>
-<article class="tile"><div class="tile-top"><span>02 / COVERAGE</span><span class="mini">PARTIAL</span></div><h2>Dataset completeness</h2><div class="big">5,902 <small>/ 10,080</small></div><p>Observed one-minute candles available</p><div class="tile-bottom"><span>REQUESTED OBSERVATIONS</span><b>58.6%</b></div></article>
-<article class="tile"><div class="tile-top"><span>03 / VALIDATION</span><span class="mini">HELD OUT</span></div><h2>Model Brier score</h2><div class="big amber">0.2574</div><p>Versus 0.2500 for constant 50% baseline</p><div class="tile-bottom"><span>UNSEEN PREDICTIONS</span><b>287</b></div></article>
-<article class="tile"><div class="tile-top"><span>04 / VERDICT</span><span class="mini">RESEARCH</span></div><h2>Model promotion</h2><div class="big amber">NOT ELIGIBLE</div><p>Model did not beat the simple baseline</p><div class="tile-bottom"><span>ORDER EXECUTION</span><b>DISABLED</b></div></article>
-</section>
-<section class="grid-main"><article class="panel chart"><div class="panel-head"><div><div class="eyebrow">HISTORICAL REFERENCE INDEX</div><h2>BTC / USD <span class="symbol">BRTI</span></h2><p id="chart-period">Archived one-minute closing prices · UTC</p></div><div class="chart-pick" role="group" aria-label="Chart sampling"><button id="btn-all" class="chosen">100 bars</button><button id="btn-short">45 bars</button></div></div><div class="legend"><span><i class="key price-key"></i>BRTI close</span><span><i class="key ema9-key"></i>EMA 9</span><span><i class="key ema21-key"></i>EMA 21</span><span class="legend-end">NO LIVE MARKET FEED</span></div><div class="canvas-wrap"><canvas id="price-chart" role="img" aria-label="Historical Bitcoin reference price chart"></canvas></div><div class="panel-foot"><span>Observations recorded October 9, 2026</span><span>Chart is historical, not a streaming quote</span></div></article>
-<article class="panel sidebar"><div class="eyebrow">RESEARCH QUALITY</div><h2>Evidence before claims.</h2><div class="score">0.2574 <small>Brier score — lower is better</small></div><div class="meter"><i style="width:85.8%"></i></div><div class="fact"><span>50% baseline</span><strong>0.2500</strong></div><div class="fact"><span>Out-of-sample samples</span><strong>287</strong></div><div class="fact"><span>Training method</span><strong>Walk-forward</strong></div><div class="fact"><span>Model features</span><strong>7 research features</strong></div><div class="fact"><span>Unavailable features</span><strong>VWAP · book depth</strong></div><p class="verdict">The tested model performed worse than a simple 50% probability forecast. No profitable strategy is established.</p></article></section>
-<section id="technical" class="panel wide"><div class="panel-head"><div><div class="eyebrow">TECHNICAL ANALYSIS DESK</div><h2>Features you can inspect.</h2></div><span class="mini">HISTORICAL SNAPSHOT</span></div><div class="scroll"><table><thead><tr><th>Indicator</th><th>Reading</th><th>Interpretation</th><th>Notes</th></tr></thead><tbody id="signals"><tr><td colspan="4">Loading historical data…</td></tr></tbody></table></div><p class="explain">Indicator readings are descriptive, computed from archived closing prices. They are not validated trading instructions. VWAP and order-book imbalance are unavailable because the archive lacks corresponding volume and book snapshots.</p></section>
-<section id="validation" class="panel wide"><div class="panel-head"><div><div class="eyebrow">OUT-OF-SAMPLE VALIDATION</div><h2>How did the model actually perform?</h2></div><span class="mini">NO PROFIT CLAIMS</span></div><div class="metric-grid"><div class="metric"><span>Price observations</span><strong>5,902</strong><small>Of 10,080 requested</small></div><div class="metric"><span>Candidate training rows</span><strong>387</strong><small>15-minute direction research</small></div><div class="metric"><span>Unseen evaluation rows</span><strong>287</strong><small>Four expanding folds</small></div><div class="metric"><span>Model vs baseline</span><strong class="amber">Worse</strong><small>0.2574 vs 0.2500</small></div></div><h3>Probability calibration</h3><p>Each bar compares the average forecast probability with the actual observed frequency in that band.</p><div id="calibration" class="calibration"></div><p class="explain">Data are historical observations, not realized prediction-market settlements. No market-implied Brier benchmark or net trading-return claim can be computed from the available archive.</p></section>
-<section id="methodology" class="panel wide"><div class="panel-head"><div><div class="eyebrow">RESEARCH METHOD</div><h2>What this dashboard does—and does not—show.</h2></div><span class="mini">READ-ONLY</span></div><div class="method"><div><h3>Observed source</h3><p>Archived BRTI one-minute Bitcoin candles collected through October 9, 2026. Coverage is partial; timestamps have not been updated after the archive date.</p></div><div><h3>Statistical evaluation</h3><p>Seven momentum, trend and volatility signals evaluated through chronological walk-forward validation. The research model is not promoted because it fails to beat the baseline.</p></div><div><h3>Execution remains absent</h3><p>There are no trade-placement endpoints, wallet connections, background collectors, order-book execution, account controls, or automated trading capabilities in this published version.</p></div></div></section>
-<footer><span>BTC15 SPIDER LAB · READ-ONLY RESEARCH</span><span>Archive cutoff: 2026-10-09 17:58 UTC · Historical information only</span></footer>
-</main><script src="/app.js" defer></script></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b1c">
+<meta name="description" content="BTC15 Spider Lab — archived Bitcoin OHLC candlestick visualization and paper-only research schematic.">
+<title>BTC15 Spider Lab | Historical Paper Schematic</title>
+<link rel="stylesheet" href="/neon.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand-mark">✳</span><span>SPIDER <b>/ BTC15</b></span></a>
+  <span class="paper-pill">PAPER RESEARCH</span>
+  <nav aria-label="Dashboard navigation">
+    <a href="#overview" class="active">DASHBOARD</a>
+    <a href="#market">CHARTS</a>
+    <a href="#analysis">ANALYSIS</a>
+    <a href="/replay.html">REPLAY</a>
+    <a href="#history">RECORDS</a>
+    <a href="/research.html">ORIGINAL VIEW</a>
+  </nav>
+  <div class="head-right"><span class="date-pill" id="archive-clock">ARCHIVE · UTC</span><span class="online"><i></i> READ ONLY</span></div>
+</header>
+<main>
+  <div class="archive-banner"><strong>HISTORICAL PAPER SCHEMATIC</strong><span>Observed Bitcoin reference-index data. Not a live feed, trading service, prediction-market execution system, or statement of realized profits.</span></div>
+
+  <section class="status-grid" aria-label="Research systems">
+    <article class="status-card"><div class="status-top"><span class="orb green"></span><strong>SOURCE</strong><small>L0</small></div><p>BRTI closed OHLC bars</p><div class="meter"><i class="green-fill" style="width:100%"></i></div><span class="status-caption" id="st-source">240 archived candles loaded</span></article>
+    <article class="status-card"><div class="status-top"><span class="orb blue"></span><strong>SCAN</strong><small>L1</small></div><p>Historical market windows</p><div class="meter"><i class="blue-fill" style="width:85%"></i></div><span class="status-caption" id="st-scan">Processing 15-minute windows</span></article>
+    <article class="status-card"><div class="status-top"><span class="orb amber"></span><strong>VET</strong><small>L2</small></div><p>Out-of-sample evidence</p><div class="meter"><i class="amber-fill" style="width:28%"></i></div><span class="status-caption">Model not validated</span></article>
+    <article class="status-card"><div class="status-top"><span class="orb green"></span><strong>TIMING</strong><small>L3</small></div><p>Direction observation</p><div class="meter"><i class="green-fill" style="width:65%"></i></div><span class="status-caption">15-minute horizon</span></article>
+    <article class="status-card"><div class="status-top"><span class="orb white"></span><strong>SIZE</strong><small>L3</small></div><p>No cash or stake</p><div class="meter"><i class="white-fill" style="width:20%"></i></div><span class="status-caption">Read-only research</span></article>
+    <article class="status-card"><div class="status-top"><span class="orb cyan"></span><strong>FILLS</strong><small>L4</small></div><p>No trade execution</p><div class="meter"><i class="cyan-fill" style="width:0%"></i></div><span class="status-caption">No orders submitted</span></article>
+    <article class="status-card"><div class="status-top"><span class="orb yellow"></span><strong>RISK</strong><small>L4</small></div><p>Missing data flagged</p><div class="meter"><i class="yellow-fill" style="width:42%"></i></div><span class="status-caption">No profit claims</span></article>
+    <article class="status-card"><div class="status-top"><span class="orb pink"></span><strong>POLLER</strong><small>API</small></div><p>External feeds disabled</p><div class="meter"><i class="pink-fill" style="width:0%"></i></div><span class="status-caption">Archive only</span></article>
+  </section>
+
+  <section class="strip"><span class="strip-heading">RESEARCH CHANNELS</span><span class="strip-chip selected">● BRTI <b>BTC / USD</b></span><span class="strip-chip">◇ EMA 20 / 50</span><span class="strip-chip">◇ RSI 14</span><span class="strip-chip">◇ MACD</span><span class="strip-chip">◇ 15m SIGNAL REPLAY</span><a href="/replay.html" class="strip-link">OPEN FULL REPLAY ↗</a></section>
+
+  <section class="layout" id="overview">
+    <article class="frame score-panel">
+      <div class="panel-heading"><div><span class="eyebrow pink-text">REPLAY PERFORMANCE · HISTORICAL</span><h2>Directional accuracy timeline</h2></div><div class="mini-controls" role="group" aria-label="Score history span"><button class="on" data-score-span="all">ALL</button><button data-score-span="8">8 WINDOWS</button><button data-score-span="4">4 WINDOWS</button></div></div>
+      <div class="score-kpis"><div><label>ARCHIVED CANDLES</label><strong id="score-candles">240</strong></div><div><label>WINDOWS REVIEWED</label><strong id="score-windows">—</strong></div><div><label>SIGNALLED</label><strong id="score-signals">—</strong></div><div><label>CORRECT</label><strong id="score-correct">—</strong></div><div><label>HISTORICAL HIT RATE</label><strong class="softpink" id="score-rate">—</strong></div><div><label>MODEL BRIER</label><strong class="gold-text">0.2574</strong></div></div>
+      <div class="score-chart"><canvas id="score-canvas" role="img" aria-label="Cumulative correct-direction percentage across historical signal windows"></canvas></div>
+      <div class="chart-foot"><span>Historical signal correctness is not account balance or net trading return</span><span>Dataset: Oct 9, 2026 · UTC</span></div>
+    </article>
+    <aside class="frame logs-panel" id="logs">
+      <div class="panel-heading"><div><span class="eyebrow">EVENT MONITOR</span><h2>Research logs</h2></div><span class="pill-small">ARCHIVED</span></div>
+      <div class="logs" id="log-list" aria-live="off"><p>Loading observations…</p></div>
+      <div class="panel-footer"><span>Read-only event timeline</span><span class="legend-dot"></span></div>
+    </aside>
+
+    <article class="frame market-panel" id="market">
+      <div class="market-top"><div><span class="eyebrow">BTC / USD · BRTI · HISTORICAL</span><div class="price-line"><strong id="market-price">—</strong><span id="market-change">—</span></div></div><div class="mini-controls" role="group" aria-label="Candlestick timeframe"><button class="on" data-timeframe="1">1m</button><button data-timeframe="5">5m</button><button data-timeframe="15">15m</button></div></div>
+      <div class="chart-sub"><span>EMA 20 <strong id="ema20-value">—</strong></span><span>EMA 50 <strong id="ema50-value">—</strong></span><span id="ohlc-values">O — H — L — C —</span></div>
+      <div class="market-chart"><canvas id="candle-canvas" role="img" aria-label="Historical Bitcoin OHLC candlestick chart with EMA overlays"></canvas></div>
+      <div class="market-foot"><span><i class="legend-candle up"></i> UP candle</span><span><i class="legend-candle down"></i> DOWN candle</span><span><i class="legend-line ema20"></i> EMA 20</span><span><i class="legend-line ema50"></i> EMA 50</span><span id="bar-label">240 candles</span></div>
+      <div class="zoomline"><label>VISIBLE BARS</label><div class="mini-controls"><button data-bars="60">60</button><button class="on" data-bars="120">120</button><button data-bars="240">240</button></div><span>Volume unavailable: BRTI archive has no trusted volume series</span></div>
+    </article>
+
+    <aside class="analysis-column" id="analysis">
+      <article class="frame inset">
+        <div class="panel-heading"><div><span class="eyebrow">TREND · ANALYSIS</span><h2>Technical desk</h2></div><span class="pill-small">OFFLINE</span></div>
+        <dl class="analysis-rows">
+          <div><dt>1m RSI (14)</dt><dd id="analysis-rsi">—</dd></div>
+          <div><dt>MACD histogram</dt><dd id="analysis-macd">—</dd></div>
+          <div><dt>EMA 9 / 21</dt><dd id="analysis-trend">—</dd></div>
+          <div><dt>5m momentum</dt><dd id="analysis-momentum">—</dd></div>
+          <div><dt>Data coverage</dt><dd>58.5%</dd></div>
+          <div><dt>Research model</dt><dd class="gold-text">NOT PROMOTED</dd></div>
+        </dl>
+      </article>
+      <article class="frame inset">
+        <div class="panel-heading"><div><span class="eyebrow">ARCHIVED DIRECTIONS</span><h2>Signal snapshots</h2></div><span class="pill-small">15 MIN</span></div>
+        <div class="signals-list" id="signal-list"></div>
+      </article>
+    </aside>
+
+    <aside class="guard-column">
+      <article class="frame inset">
+        <div class="panel-heading"><div><span class="eyebrow">RESEARCH GUARDRAILS</span><h2>Safety status</h2></div><span class="pill-small">LOCKED</span></div>
+        <div class="guard-row"><span>Order routing</span><b class="good">DISABLED</b></div>
+        <div class="guard-row"><span>Wallet connection</span><b class="good">NONE</b></div>
+        <div class="guard-row"><span>Historical feed</span><b class="good">OBSERVED</b></div>
+        <div class="guard-row"><span>Live prices</span><b class="warn">UNAVAILABLE</b></div>
+        <div class="guard-row"><span>Market settlements</span><b class="warn">UNAVAILABLE</b></div>
+        <div class="guard-row"><span>Profit simulation</span><b class="good">NOT CLAIMED</b></div>
+      </article>
+      <article class="frame inset scenario-box">
+        <div class="panel-heading"><div><span class="eyebrow pink-text">SCENARIO EXPLORER</span><h2>Historical directions</h2></div></div>
+        <p>Filter the past signals, rather than submitting an order.</p>
+        <div class="scenario-buttons"><button data-filter="UP" class="scenario-up">↑ REVIEW UP</button><button data-filter="DOWN" class="scenario-down">↓ REVIEW DOWN</button></div>
+        <div class="scenario-footer"><button class="clear-btn" data-filter="ALL">SHOW ALL SIGNALS ↗</button><span>Paper research only</span></div>
+      </article>
+    </aside>
+
+    <article class="frame history-panel" id="history">
+      <div class="panel-heading"><div><span class="eyebrow">OBSERVATION JOURNAL</span><h2>15-minute directional replay</h2></div><div class="history-actions"><span class="pill-small" id="filter-status">ALL HISTORICAL WINDOWS</span><button id="download-csv" class="small-outline">EXPORT CSV</button></div></div>
+      <div class="table-scroll"><table><thead><tr><th>UTC TIME</th><th>HISTORICAL SIGNAL</th><th>REFERENCE ENTRY</th><th>REFERENCE +15M</th><th>INDEX CHANGE</th><th>RESULT</th></tr></thead><tbody id="journal-body"></tbody></table></div>
+      <p class="table-note">This is an educational replay of archived price directions, not open positions, trade executions, contracted prediction-market outcomes or monetary returns. The earlier research model had a Brier score of 0.2574 versus 0.2500 baseline (worse).</p>
+    </article>
+  </section>
+  <footer>BTC15 SPIDER LAB <span>NEON PAPER-RESEARCH SCHEMATIC · ARCHIVED BRTI DATA · NO LIVE TRADES</span></footer>
+</main>
+<script src="/neon.js" defer></script>
+</body></html>
