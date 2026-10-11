@@ -1,0 +1,16 @@
+{
+  "name": "btc15-spider-lab-research",
+  "version": "2.7.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.4"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:benchmark": "node --test tests/virtual-benchmark.test.mjs"
+  }
+}
