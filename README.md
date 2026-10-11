@@ -1,3 +1,15 @@
+## $500 ten-minute BTC virtual price study (v2.7)
+
+- **Educational tracker:** `/virtual.html` — starting reference is exactly **$500** (fictional, not funded).
+- **Scheduled Netlify function:** `virtual-snapshot`, UTC cron `*/10 * * * *`. On each scheduled run, it checks a public BTC/USD spot quote from the existing source, validates the source timestamp and price, and records one immutable observation for that ten-minute slot in Netlify Blobs.
+- **Read-only history endpoint:** `GET /api/virtual-progress?limit=1..144`; only verified persistent observations appear in the response. The UI polls for results and supports a progress chart, source timestamps, an observation journal, and CSV export.
+- **Mathematical benchmark:** `500 × observed BTC/USD ÷ first observed BTC/USD`. Each subsequent snapshot reports a hypothetical reference value and difference from the original $500; no money is transferred and no trade position is opened.
+- **Persistence:** each observation is stored under a unique immutable ten-minute timestamp; `baseline` is created only once. No counters or mutable balances are stored in Netlify Blobs.
+- **Data quality:** if a ticker is stale, malformed, or unavailable, the scheduled run skips it rather than inventing a price or filling a missing observation.
+- **Verification:** `node --test tests/virtual-benchmark.test.mjs` and the GitHub Actions policy checks. Netlify deployment confirms the scheduler is registered; actual completed observations require runtime verification after the first scheduled invocation.
+
+This is **not** a trading robot, prediction-market product, funded wallet, simulated order-fill log, or statement of real profit. It is a read-only BTC spot price study for monitoring changes in the reference value.
+
 ## Read-only public BTC/USD spot feed (v2.6)
 
 - **Live-view page:** `/spot.html`; the neon homepage also shows a source-timestamped BTC spot quote.
