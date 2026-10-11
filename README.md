@@ -1,3 +1,11 @@
+## Neon paper-research schematic (v2.5)
+
+The **homepage** at `/` is now a fully coded dark-navy/neon-pink dashboard inspired by the supplied reference screenshot, not a mock image. It includes eight research status cards, a timestamped event monitor, 1m/5m/15m BTC OHLC candlesticks with EMA 20/50, an offline correctness chart, technical analysis, research guards, direction-filter buttons, an interactive historical replay journal, and CSV export.
+
+All 240 displayed 1-minute OHLC candles are directly sourced from the archived BRTI dataset; high/low values are not generated. The 15-minute replay observations in the homepage use a deterministic past-only EMA9/EMA21 + 5-minute momentum diagnostic, with outcomes measured 15 minutes later. They do **not** reflect executed trades or profit. The original research UI remains at `/research.html` and the full earlier replay remains at `/replay.html`.
+
+**No wallets, leverage, markets API calls, order routing, background bots, current trade execution, or fabricated balance/P&L are included.** The reference screenshot was used for visual layout and color guidance only.
+
 # BTC15 Spider Research Lab
 
 A **read-only** Bitcoin historical analysis and forecast-validation dashboard. This repo contains no order execution, wallet access, trade automation, collector jobs, paper accounts, prediction-market quote scraping or trading APIs.
