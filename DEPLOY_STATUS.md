@@ -1,10 +1,11 @@
-# BTC15 Spider Lab deployment status
+# BTC15 deployment status
 
-This repository is reserved for the paper-only BTC15 Spider Bot v2.4 project.
+**2026-10-10:** The research-only static dashboard is committed to GitHub on `main`. Its `public` directory includes an accessible HTML dashboard, styles, and browser-only historical price/indicator analysis. No trading server endpoints or wallet functionality are included.
 
-- Netlify project: https://app.netlify.com/projects/btc15-spider-lab-justin
-- The application code has not yet been uploaded to this repository.
-- No production deployment or working cloud database has yet been verified.
-- All trading execution must remain paper-only.
+GitHub repository: https://github.com/justinflinchum31-jpg/btc15-spider-lab
 
-Before deployment, upload the complete v2.4 source files at the repository root, including `package.json`, `netlify.toml`, `public/`, `src/`, and `netlify/`. Do not upload any `.env`, credentials, wallet keys or private data. Then connect the repository's `main` branch in the Netlify project settings and configure the supported database integration. Validate the CI tests and API endpoints before trusting paper-trading results.
+Netlify project: https://app.netlify.com/projects/btc15-spider-lab-justin
+
+**Not yet live:** The GitHub source is not automatically linked to the existing Netlify site. The current Netlify project still reports no published deployment. Finish in Netlify dashboard: Project configuration → Build & deploy → Continuous deployment → Link repository → GitHub → justinflinchum31-jpg/btc15-spider-lab → main. Read-only `netlify.toml` sets publish directory `public`. No API keys or background services are needed.
+
+Historical dataset snapshot: Oct 9, 2026; Brier score 0.2574, worse than 0.2500 baseline. No demonstrated trading profitability.
