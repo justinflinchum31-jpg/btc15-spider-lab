@@ -19,8 +19,14 @@ jobs:
           node --check public/spot.js
           node --check public/spot-home.js
           node --check netlify/functions/spot-market.mjs
+          node --check src/virtual-benchmark.mjs
+          node --check netlify/functions/virtual-snapshot.mjs
+          node --check netlify/functions/virtual-progress.mjs
+          node --check public/virtual.js
       - name: Run market-data unit tests
-        run: node --test tests/spot-market.test.mjs
+        run: |
+          node --test tests/spot-market.test.mjs
+          node --test tests/virtual-benchmark.test.mjs
       - name: Validate read-only policy
         run: |
           node --input-type=module <<'EOF'
@@ -37,6 +43,11 @@ jobs:
           const spotJS = fs.readFileSync('public/spot.js','utf8');
           const spotHomeJS = fs.readFileSync('public/spot-home.js','utf8');
           const functionJS = fs.readFileSync('netlify/functions/spot-market.mjs','utf8');
+          const virtualHTML = fs.readFileSync('public/virtual.html','utf8');
+          const virtualJS = fs.readFileSync('public/virtual.js','utf8');
+          const snapshotJS = fs.readFileSync('netlify/functions/virtual-snapshot.mjs','utf8');
+          const historyJS = fs.readFileSync('netlify/functions/virtual-progress.mjs','utf8');
+          const benchmarkJS = fs.readFileSync('src/virtual-benchmark.mjs','utf8');
           const toml = fs.readFileSync('netlify.toml','utf8');
           const ids = new Set([...researchHtml.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
           const requested = [...js.matchAll(/\$\('([^']+)'\)/g)].map(m=>m[1]);
@@ -58,6 +69,17 @@ jobs:
           assert(spotJS.includes("'/api/spot-market?mode='") && spotHomeJS.includes("'/api/spot-market?mode=quote'"),'Only approved same-origin API calls allowed');
           assert(!/\b(walletConnect|placeOrder|submitOrder|executeTrade|paperTrade)\s*\(/i.test(spotJS + spotHomeJS + functionJS),'Trading capabilities not allowed');
           assert(functionJS.includes('https://api.exchange.coinbase.com/products/BTC-USD'),'Only public fixed BTC/USD endpoint allowed');
-          assert.deepEqual(fs.readdirSync('netlify/functions').sort(),['spot-market.mjs'],'Only allowlisted market-data reader may be deployed');
+          assert.deepEqual(fs.readdirSync('netlify/functions').sort(),['spot-market.mjs','virtual-progress.mjs','virtual-snapshot.mjs'],'Unexpected server endpoint');
+          assert(html.includes('href="/virtual.html"'),'Virtual study must be accessible from homepage');
+          assert(virtualHTML.includes('virtual-graph') && virtualHTML.includes('/virtual.js'),'Virtual study UI missing');
+          const studyIds = new Set([...virtualHTML.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
+          const virtualRequired = [...virtualJS.matchAll(/\$\('([^']+)'\)/g)].map(m=>m[1]);
+          assert(virtualRequired.every(id=>studyIds.has(id)),'Missing virtual study UI element');
+          assert(snapshotJS.includes('schedule:"*/10 * * * *"'),'Expected 10-minute UTC schedule');
+          assert(!snapshotJS.includes('path:"/'),'Snapshot job must not expose an HTTP route');
+          assert(historyJS.includes('path:"/api/virtual-progress"')&&historyJS.includes('method:"GET"'),'Study history must be read-only');
+          assert(benchmarkJS.includes('START_REFERENCE_USD = 500'),'Starting reference must stay at $500');
+          assert(snapshotJS.includes('onlyIfNew:true'),'Observations must be immutable');
+          assert(!/\b(walletConnect|placeOrder|submitOrder|executeTrade|paperTrade)\s*\(/i.test(virtualJS+snapshotJS+historyJS+benchmarkJS),'Trading operations are not permitted');
           console.log('Read-only static checks passed');
           EOF
