@@ -1,0 +1,13 @@
+node_modules/
+.netlify/
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+*.db
+*.log
+*.pem
+*.key
+data/
+evidence/live-audit.json
