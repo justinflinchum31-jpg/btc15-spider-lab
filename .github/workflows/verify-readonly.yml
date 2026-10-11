@@ -56,7 +56,7 @@ jobs:
           assert(html.includes('href="/spot.html"') && html.includes('spot-home.js'),'Spot interface link missing');
           assert(spotHTML.includes('/spot.js') && spotHTML.includes('spot-canvas'),'Spot charts missing');
           assert(spotJS.includes("'/api/spot-market?mode='") && spotHomeJS.includes("'/api/spot-market?mode=quote'"),'Only approved same-origin API calls allowed');
-          assert(!/\\b(walletConnect|placeOrder|submitOrder|executeTrade|paperTrade)\\s*\\(/i.test(spotJS+spotHomeJS+functionJS),'Trading capabilities not allowed');
+          assert(!/\b(walletConnect|placeOrder|submitOrder|executeTrade|paperTrade)\s*\(/i.test(spotJS + spotHomeJS + functionJS),'Trading capabilities not allowed');
           assert(functionJS.includes('https://api.exchange.coinbase.com/products/BTC-USD'),'Only public fixed BTC/USD endpoint allowed');
           assert.deepEqual(fs.readdirSync('netlify/functions').sort(),['spot-market.mjs'],'Only allowlisted market-data reader may be deployed');
           console.log('Read-only static checks passed');
